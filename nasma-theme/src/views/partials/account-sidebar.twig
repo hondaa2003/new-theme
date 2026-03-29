@@ -1,0 +1,26 @@
+<aside class="account-sidebar">
+  <div class="account-avatar">
+    <div class="avatar-circle">{{ customer.name | first }}</div>
+    <div>
+      <p class="avatar-name">{{ customer.name }}</p>
+      <p class="avatar-email">{{ customer.email }}</p>
+    </div>
+  </div>
+  <nav class="account-nav">
+    <a href="{{ store.urls.profile }}" class="account-nav-link {% if page.type == 'profile' %}active{% endif %}">
+      <i class="sicon-user"></i> {{ 'my_account' | trans }}
+    </a>
+    <a href="{{ store.urls.orders }}" class="account-nav-link {% if page.type == 'orders' %}active{% endif %}">
+      <i class="sicon-bag"></i> {{ 'my_orders' | trans }}
+    </a>
+    <a href="{{ store.urls.wishlist }}" class="account-nav-link {% if page.type == 'wishlist' %}active{% endif %}">
+      <i class="sicon-heart"></i> {{ 'wishlist' | trans }}
+    </a>
+    <a href="{{ store.urls.notifications }}" class="account-nav-link {% if page.type == 'notifications' %}active{% endif %}">
+      <i class="sicon-bell"></i> {{ 'notifications' | trans }}
+    </a>
+    <a href="{{ store.urls.logout }}" class="account-nav-link account-logout">
+      <i class="sicon-logout"></i> {{ 'logout' | trans }}
+    </a>
+  </nav>
+</aside>

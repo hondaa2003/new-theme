@@ -1,0 +1,15 @@
+{% extends 'layouts/master.twig' %}
+{% block content %}
+<div class="section single-blog">
+  <div class="single-blog-inner">
+    <div class="blog-meta">
+      <span class="blog-date">{{ post.created_at | date("d M Y") }}</span>
+    </div>
+    <h1 class="single-blog-title">{{ post.title }}</h1>
+    {% if post.image %}
+      <img src="{{ post.image }}" alt="{{ post.title }}" class="single-blog-img" loading="eager">
+    {% endif %}
+    <div class="single-blog-content">{{ post.content | raw }}</div>
+  </div>
+</div>
+{% endblock %}

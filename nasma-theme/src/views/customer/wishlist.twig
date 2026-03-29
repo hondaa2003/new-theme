@@ -1,0 +1,24 @@
+{% extends 'layouts/master.twig' %}
+{% block content %}
+<div class="account-page">
+  <div class="account-inner">
+    {% include 'partials/account-sidebar.twig' %}
+    <div class="account-main">
+      <h1 class="account-title">{{ 'wishlist' | trans }}</h1>
+      {% if wishlist.products %}
+        <div class="products-grid">
+          {% for product in wishlist.products %}
+            {% include 'product/card.twig' with { product: product } %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">🤍</div>
+          <h2>{{ 'wishlist_empty' | trans }}</h2>
+          <a href="{{ store.urls.products }}" class="btn-primary"><span>{{ 'start_shopping' | trans }}</span></a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
