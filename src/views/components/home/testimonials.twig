@@ -1,0 +1,45 @@
+{# ── قسم آراء العملاء ── #}
+{% set testimonials = [
+  {
+    text: theme.settings.get('review_1_text') | default('والله العظيم من أجمل ما اشتريت. الخامة فوق التوقعات والتفصيل محترم جداً. وصلت في يومين بالضبط.'),
+    name: theme.settings.get('review_1_name') | default('نوف العتيبي'),
+    city: theme.settings.get('review_1_city') | default('الرياض'),
+    initial: 'ن'
+  },
+  {
+    text: theme.settings.get('review_2_text') | default('لبستها في حفل خطوبة وأخذت ثناء من الكل. التطريز دقيق جداً والقماش ما يتعرق فيه.'),
+    name: theme.settings.get('review_2_name') | default('سارة الزهراني'),
+    city: theme.settings.get('review_2_city') | default('جدة'),
+    initial: 'س'
+  },
+  {
+    text: theme.settings.get('review_3_text') | default('خدمة العملاء ممتازة وردوا بسرعة. العباية بالضبط كما في الصورة بل أحلى.'),
+    name: theme.settings.get('review_3_name') | default('منيرة الحربي'),
+    city: theme.settings.get('review_3_city') | default('الدمام'),
+    initial: 'م'
+  }
+] %}
+
+<section class="nasma-section nasma-testimonials" aria-label="آراء العملاء">
+  <div class="nasma-section__header reveal">
+    <span class="nasma-section__tag">آراء عملاؤنا</span>
+    <h2 class="nasma-section__title">ماذا يقلن عنّا</h2>
+  </div>
+
+  <div class="nasma-reviews reveal">
+    {% for review in testimonials %}
+      <div class="nasma-review">
+        <div class="nasma-review__quote" aria-hidden="true">"</div>
+        <div class="nasma-review__stars" aria-label="5 نجوم">★★★★★</div>
+        <p class="nasma-review__text">{{ review.text }}</p>
+        <div class="nasma-review__author">
+          <div class="nasma-review__avatar" aria-hidden="true">{{ review.initial }}</div>
+          <div>
+            <div class="nasma-review__name">{{ review.name }}</div>
+            <div class="nasma-review__city">{{ review.city }}</div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,171 @@
+{% extends 'layouts/master.twig' %}
+
+{% block content %}
+
+{# ─── PAGE HEADER ─── #}
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="section-tag">{{ 'our_collection' | trans }}</span>
+    <h1 class="section-title">
+      {{ category.name ?? ('all_products' | trans) }}
+    </h1>
+    {% if category.description %}
+      <p class="page-hero-desc">{{ category.description }}</p>
+    {% endif %}
+  </div>
+</div>
+
+{# ─── SHOP LAYOUT ─── #}
+<div class="shop-layout">
+
+  {# ─── SIDEBAR FILTERS ─── #}
+  <aside class="shop-sidebar" aria-label="{{ 'filters' | trans }}">
+
+    {# Categories #}
+    {% if categories %}
+      <div class="filter-group">
+        <h3 class="filter-title">{{ 'categories' | trans }}</h3>
+        <ul class="filter-list">
+          <li>
+            <a href="{{ store.urls.products }}"
+               class="filter-link {% if not current_category %}active{% endif %}">
+              {{ 'all_products' | trans }}
+            </a>
+          </li>
+          {% for cat in categories %}
+            <li>
+              <a href="{{ cat.url }}"
+                 class="filter-link {% if cat.id == category.id %}active{% endif %}">
+                {{ cat.name }}
+                <span class="filter-count">{{ cat.products_count }}</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    {# Price Range #}
+    <div class="filter-group">
+      <h3 class="filter-title">{{ 'price_range' | trans }}</h3>
+      <salla-price-slider
+        min="{{ filters.price.min | default(0) }}"
+        max="{{ filters.price.max | default(2000) }}"
+      ></salla-price-slider>
+    </div>
+
+    {# Options Filters (Color, Size, etc.) #}
+    {% if filters.options %}
+      {% for option in filters.options %}
+        <div class="filter-group">
+          <h3 class="filter-title">{{ option.name }}</h3>
+          {% if option.type == 'color' %}
+            <div class="filter-colors">
+              {% for val in option.values %}
+                <label class="filter-color-label" title="{{ val.name }}">
+                  <input type="checkbox" name="filter[{{ option.id }}][]" value="{{ val.id }}" hidden>
+                  <span class="color-dot-lg" style="background: {{ val.color }}"></span>
+                </label>
+              {% endfor %}
+            </div>
+          {% else %}
+            <ul class="filter-list">
+              {% for val in option.values %}
+                <li>
+                  <label class="filter-check">
+                    <input type="checkbox" name="filter[{{ option.id }}][]" value="{{ val.id }}">
+                    <span>{{ val.name }}</span>
+                  </label>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+  </aside>
+
+  {# ─── PRODUCTS AREA ─── #}
+  <div class="shop-main">
+
+    {# Toolbar #}
+    <div class="shop-toolbar">
+      <p class="results-count">
+        {{ products.total }} {{ 'product' | trans }}
+      </p>
+      <div class="toolbar-right">
+        <salla-sort-by></salla-sort-by>
+        <div class="view-toggle">
+          <button class="view-btn active" data-view="grid" aria-label="{{ 'grid_view' | trans }}">
+            <i class="sicon-grid"></i>
+          </button>
+          <button class="view-btn" data-view="list" aria-label="{{ 'list_view' | trans }}">
+            <i class="sicon-list"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {# Active Filters #}
+    {% if filters.active %}
+      <div class="active-filters">
+        {% for filter in filters.active %}
+          <span class="active-filter-tag">
+            {{ filter.name }}: {{ filter.value }}
+            <a href="{{ filter.remove_url }}" aria-label="{{ 'remove_filter' | trans }}">✕</a>
+          </span>
+        {% endfor %}
+        <a href="{{ store.urls.products }}" class="clear-filters">{{ 'clear_all' | trans }}</a>
+      </div>
+    {% endif %}
+
+    {# Products Grid #}
+    {% if products.data %}
+      <div class="products-grid" id="products-grid">
+        {% for product in products.data %}
+          {% include 'product/card.twig' with { product: product } %}
+        {% endfor %}
+      </div>
+
+      {# Pagination #}
+      {% if products.last_page > 1 %}
+        <nav class="pagination" aria-label="{{ 'pagination' | trans }}">
+          {% if products.current_page > 1 %}
+            <a href="?page={{ products.current_page - 1 }}" class="page-btn page-prev" aria-label="{{ 'prev' | trans }}">
+              ‹
+            </a>
+          {% endif %}
+
+          {% for page in 1..products.last_page %}
+            <a href="?page={{ page }}"
+               class="page-btn {% if page == products.current_page %}active{% endif %}"
+               {% if page == products.current_page %}aria-current="page"{% endif %}>
+              {{ page }}
+            </a>
+          {% endfor %}
+
+          {% if products.current_page < products.last_page %}
+            <a href="?page={{ products.current_page + 1 }}" class="page-btn page-next" aria-label="{{ 'next' | trans }}">
+              ›
+            </a>
+          {% endif %}
+        </nav>
+      {% endif %}
+
+    {% else %}
+      {# Empty State #}
+      <div class="empty-state">
+        <div class="empty-icon">🛍️</div>
+        <h2>{{ 'no_products_found' | trans }}</h2>
+        <p>{{ 'try_different_filter' | trans }}</p>
+        <a href="{{ store.urls.products }}" class="btn-primary">
+          <span>{{ 'view_all_products' | trans }}</span>
+        </a>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

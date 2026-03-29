@@ -1,0 +1,61 @@
+{# ── الهيدر الرئيسي ── #}
+<header class="nasma-header" role="banner">
+  <div class="nasma-header__inner">
+
+    {# اللوجو #}
+    <a href="{{ link('/') }}" class="nasma-logo" aria-label="{{ store.name }}">
+      {% if store.logo %}
+        <img src="{{ store.logo }}" alt="{{ store.name }}" class="nasma-logo__img" width="120" height="48" loading="eager">
+      {% else %}
+        <span class="nasma-logo__text">
+          {{ store.name }}
+          <span class="nasma-logo__sub">عبايات فاخرة</span>
+        </span>
+      {% endif %}
+    </a>
+
+    {# القائمة الرئيسية #}
+    <nav class="nasma-nav" aria-label="القائمة الرئيسية">
+      <salla-menu source="main" class="nasma-nav__menu"></salla-menu>
+    </nav>
+
+    {# الأيقونات #}
+    <div class="nasma-header__actions">
+      {# بحث #}
+      <button class="nasma-icon-btn" aria-label="بحث" onclick="salla.searchModal.toggle()">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+
+      {# المفضلة #}
+      <a href="{{ link('/wishlist') }}" class="nasma-icon-btn" aria-label="المفضلة">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </a>
+
+      {# السلة #}
+      <salla-cart-summary class="nasma-icon-btn nasma-cart-btn" aria-label="سلة التسوق">
+        <svg slot="icon" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </salla-cart-summary>
+
+      {# زر الهامبرجر للموبايل #}
+      <button class="nasma-burger" aria-label="القائمة" aria-expanded="false" id="nasma-burger">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  {# القائمة الجانبية للموبايل #}
+  <div class="nasma-mobile-menu" id="nasma-mobile-menu" aria-hidden="true">
+    <div class="nasma-mobile-menu__inner">
+      <salla-menu source="main" class="nasma-mobile-menu__links"></salla-menu>
+      <salla-social class="nasma-mobile-menu__social"></salla-social>
+    </div>
+  </div>
+</header>

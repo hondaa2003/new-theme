@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="{{ store.lang | default('ar') }}" dir="{{ store.dir | default('rtl') }}">
+<head>
+  {% hook 'head.open' %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{{ store.name }}{% endblock %} — عبايات فاخرة</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+
+  {{ 'nasma.css' | asset_url | stylesheet_tag }}
+
+  {% hook 'head.close' %}
+</head>
+<body class="nasma-body">
+
+  {% hook 'body.open' %}
+
+  {% include 'sections/announcement' %}
+  {% include 'sections/header' %}
+
+  <main id="MainContent">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include 'sections/footer' %}
+
+  {{ 'nasma.js' | asset_url | script_tag }}
+
+  {% hook 'body.close' %}
+</body>
+</html>

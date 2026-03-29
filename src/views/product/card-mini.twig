@@ -1,0 +1,9 @@
+<div class="product-card-mini">
+  <a href="{{ product.url }}">
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="60" height="80" loading="lazy">
+  </a>
+  <div>
+    <a href="{{ product.url }}" class="product-name">{{ product.name }}</a>
+    <salla-price amount="{{ product.sale_price ?? product.price }}" currency="{{ store.currency }}"></salla-price>
+  </div>
+</div>

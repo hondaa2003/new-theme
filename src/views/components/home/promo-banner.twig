@@ -1,0 +1,46 @@
+{# ── بانر العرض مع العداد ── #}
+{% set promo_end_date = theme.settings.get('promo_end_date') | default('') %}
+
+<div class="nasma-promo" aria-label="عرض خاص">
+  <div class="nasma-promo__bg" aria-hidden="true"></div>
+  <div class="nasma-promo__pattern" aria-hidden="true"></div>
+
+  <div class="nasma-promo__content">
+
+    <div class="nasma-promo__text reveal">
+      <span class="nasma-promo__tag">
+        {{ theme.settings.get('promo_tag') | default('عرض محدود') }}
+      </span>
+      <h2 class="nasma-promo__title">
+        {{ theme.settings.get('promo_title_line1') | default('كولكشن الموسم') }}<br>
+        <em>{{ theme.settings.get('promo_title_line2') | default('خصم حتى ٤٠٪') }}</em>
+      </h2>
+      <a href="{{ link('/store?filter[has_sale_price]=true') }}" class="nasma-btn-primary">
+        <span>{{ theme.settings.get('promo_btn') | default('استعرضي العروض') }}</span>
+      </a>
+    </div>
+
+    <div class="nasma-countdown reveal"
+         id="nasma-countdown"
+         data-end="{{ promo_end_date }}"
+         aria-label="العداد التنازلي للعرض">
+      <div class="nasma-countdown__item">
+        <span class="nasma-countdown__num" id="cd-days">00</span>
+        <span class="nasma-countdown__label">يوم</span>
+      </div>
+      <div class="nasma-countdown__item">
+        <span class="nasma-countdown__num" id="cd-hours">00</span>
+        <span class="nasma-countdown__label">ساعة</span>
+      </div>
+      <div class="nasma-countdown__item">
+        <span class="nasma-countdown__num" id="cd-mins">00</span>
+        <span class="nasma-countdown__label">دقيقة</span>
+      </div>
+      <div class="nasma-countdown__item">
+        <span class="nasma-countdown__num" id="cd-secs">00</span>
+        <span class="nasma-countdown__label">ثانية</span>
+      </div>
+    </div>
+
+  </div>
+</div>

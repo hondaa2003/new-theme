@@ -1,0 +1,12 @@
+{% extends 'layouts/master.twig' %}
+{% block content %}
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <span class="section-tag">{{ 'rewards' | trans }}</span>
+    <h1 class="section-title">{{ 'loyalty_program' | trans }}</h1>
+  </div>
+</div>
+<div class="section">
+  <salla-loyalty></salla-loyalty>
+</div>
+{% endblock %}
